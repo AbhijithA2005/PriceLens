@@ -8,6 +8,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import numpy as np
 import pandas as pd
+import os
+import joblib
 
 from preprocessing import (
     list_datasets,
@@ -38,6 +40,15 @@ app.add_middleware(
 #   "feature_names", "preprocessor",
 # }
 trained: dict = {}
+
+# Load pre-trained models if they exist (for stateless deployment)
+pretrained_path = os.path.join(os.path.dirname(__file__), "pretrained_models.joblib")
+if os.path.exists(pretrained_path):
+    print(f"Loading pre-trained models from {pretrained_path}...")
+    try:
+        trained = joblib.load(pretrained_path)
+    except Exception as e:
+        print(f"Failed to load pre-trained models: {e}")
 
 
 # ── Pydantic schemas ─────────────────────────────────────────────────────

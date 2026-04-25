@@ -162,7 +162,9 @@ def load_dataset(dataset_name: str) -> pd.DataFrame:
 # Preprocessing pipeline
 # ---------------------------------------------------------------------------
 
-def preprocess(df: pd.DataFrame, dataset_name: str | None = None):
+from typing import Optional
+
+def preprocess(df: pd.DataFrame, dataset_name: Optional[str] = None):
     """
     Full preprocessing pipeline.
 
