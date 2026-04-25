@@ -81,16 +81,18 @@ export default function DatasetSelector({ selected, onSelect, onTrain, training 
       >
         <div style={styles.iconWrap}><DatasetIcon name={ds.name} /></div>
         <div style={styles.cardContent}>
-          <div style={styles.cardTitle}>
-            {meta.label}
-            {isActive && <span className="badge badge-orange" style={{ marginLeft: 8 }}>Active</span>}
-            {training && isActive && (
-              <span style={styles.trainingIndicator}>
-                <div className="spinner" style={{ width: 12, height: 12, borderWidth: 1.5 }} />
-                Training…
-              </span>
-            )}
-          </div>
+          <div style={styles.cardTitle}>{meta.label}</div>
+          {(isActive || (training && isActive)) && (
+            <div style={styles.badgeRow}>
+              {isActive && <span className="badge badge-orange">Active</span>}
+              {training && isActive && (
+                <span style={styles.trainingIndicator}>
+                  <div className="spinner" style={{ width: 12, height: 12, borderWidth: 1.5 }} />
+                  Training…
+                </span>
+              )}
+            </div>
+          )}
           <div style={styles.cardDesc}>{meta.desc}</div>
           <div style={styles.cardMeta}>
             <span className="mono">{ds.rows?.toLocaleString()} rows</span>
@@ -213,16 +215,26 @@ const styles = {
     color: '#55556a',
     fontFamily: "'Space Mono', monospace",
   },
+  badgeRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 8,
+    flexWrap: 'wrap',
+  },
   trainingIndicator: {
-    marginLeft: 'auto',
     display: 'flex',
     alignItems: 'center',
     gap: 6,
-    fontSize: '0.68rem',
+    fontSize: '0.65rem',
     color: '#f97316',
     fontFamily: "'Space Mono', monospace",
     textTransform: 'uppercase',
-    letterSpacing: '0.02em',
+    letterSpacing: '0.04em',
+    background: 'rgba(249, 115, 22, 0.08)',
+    padding: '2px 8px',
+    borderRadius: '4px',
+    border: '1px solid rgba(249, 115, 22, 0.2)',
   },
 
   /* ── Bonus +1 Card ── */
