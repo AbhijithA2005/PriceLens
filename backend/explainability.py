@@ -3,7 +3,12 @@ explainability.py — SHAP-based explanations for linear regression models.
 """
 
 import numpy as np
-import shap
+try:
+    import shap
+    SHAP_AVAILABLE = True
+except ImportError:
+    SHAP_AVAILABLE = False
+
 
 
 def explain_prediction(model, X_background, X_instance, feature_names, top_n=10):
@@ -22,10 +27,14 @@ def explain_prediction(model, X_background, X_instance, feature_names, top_n=10)
     -------
     list[dict] — [{feature, shap_value, contribution_direction}, ...]
     """
-    try:
-        explainer = shap.LinearExplainer(model, X_background)
-        shap_values = explainer.shap_values(X_instance)
-    except Exception:
+    if SHAP_AVAILABLE:
+        try:
+            explainer = shap.LinearExplainer(model, X_background)
+            shap_values = explainer.shap_values(X_instance)
+        except Exception:
+            SHAP_AVAILABLE = False # Fallback for next time or this time
+            return explain_prediction(model, X_background, X_instance, feature_names, top_n)
+    else:
         # Fallback: use coefficient-based pseudo-SHAP
         if hasattr(model, "coef_"):
             coef = np.array(model.coef_).flatten()
@@ -58,13 +67,16 @@ def global_shap_summary(model, X_background, feature_names, top_n=15):
     -------
     list[dict] — [{feature, mean_abs_shap}, ...] sorted descending
     """
-    try:
-        explainer = shap.LinearExplainer(model, X_background)
-        # Use a sample if dataset is large
-        sample_size = min(500, X_background.shape[0])
-        X_sample = X_background[:sample_size]
-        shap_values = explainer.shap_values(X_sample)
-    except Exception:
+    if SHAP_AVAILABLE:
+        try:
+            explainer = shap.LinearExplainer(model, X_background)
+            # Use a sample if dataset is large
+            sample_size = min(500, X_background.shape[0])
+            X_sample = X_background[:sample_size]
+            shap_values = explainer.shap_values(X_sample)
+        except Exception:
+            return global_shap_summary(model, X_background, feature_names, top_n) # Let it hit the else
+    else:
         # Fallback: coefficient magnitudes
         if hasattr(model, "coef_"):
             coef = np.abs(np.array(model.coef_).flatten())
