@@ -1,70 +1,58 @@
-# PriceLens — Real-Estate Price Intelligence
+# PriceLens ◈ Real-Estate Price Intelligence
 
-ML-powered real-estate price prediction system with full transparency — compare 5 regression models, inspect residuals, and understand predictions through SHAP explainability.
+PriceLens is a data-driven real-estate valuation platform built with **FastAPI** and **React**. It leverages multiple regression models and SHAP-based explainability to provide high-fidelity property estimates with full transparency.
 
-## Tech Stack
+![PriceLens Banner](https://raw.githubusercontent.com/AbhijithA2005/PriceLens/main/frontend/src/assets/hero.png)
 
-- **Backend:** Python, FastAPI, scikit-learn, SHAP, statsmodels
-- **Frontend:** React (Vite), Recharts
-- **Communication:** REST API (JSON)
+---
 
-## Setup Instructions
+## 🚀 Key Features
+- **5 ML Models**: Compare Linear, Ridge, Lasso, ElasticNet, and Polynomial regressions in real-time.
+- **3D Interactive Diagnostics**: Full 3D rotation of residuals, Q-Q plots, and error landscapes via Plotly.js.
+- **SHAP Explainability**: Local and global feature importance to understand "Black Box" predictions.
+- **Automated Pipeline**: Auto-detects and pre-processes datasets (Ames, California, Zillow, King County).
+- **Premium UI**: Dark-mode glassmorphism interface with custom micro-animations.
 
-### 1. Backend
+---
 
+## 🛠️ Tech Stack
+- **Backend**: Python (FastAPI, Scikit-Learn, Pandas, SHAP)
+- **Frontend**: React 19, Vite, Plotly.js (GL3D), Recharts
+- **Styling**: Vanilla CSS (Custom Design System)
+- **Deployment**: Production-ready architecture with code-splitting and Error Boundaries.
+
+---
+
+## 📖 Documentation
+For a deep dive into the system architecture, ML pipeline, and 3D diagnostic math, see the full [SYSTEM_DOCUMENTATION.md](./SYSTEM_DOCUMENTATION.md).
+
+---
+
+## ⚡ Quick Start
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/AbhijithA2005/PriceLens.git
+cd PriceLens
+```
+
+### 2. Setup Backend
 ```bash
 cd backend
 pip install -r requirements.txt
+python main.py
 ```
 
-Place your CSV datasets in `/backend/data/`:
-- `AmesHousing.csv` — Ames Housing dataset
-- `housing.csv` — California Housing dataset
-- `kc_house_data.csv` — King County house sales
-- `Zillow_Housing_data.csv` — Zillow home value index
-
-Start the server:
-```bash
-cd backend
-uvicorn main:app --reload
-```
-
-The API will be available at `http://localhost:8000`.
-
-### 2. Frontend
-
+### 3. Setup Frontend
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-The app will be available at `http://localhost:5173`.
+---
 
-## Models
-
-1. **Linear Regression** — baseline ordinary least squares
-2. **Polynomial Regression** — degree=2 on top 5 features
-3. **Ridge Regression** — L2 regularisation (RidgeCV)
-4. **Lasso Regression** — L1 regularisation (LassoCV)
-5. **ElasticNet Regression** — L1+L2 regularisation (ElasticNetCV)
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/datasets` | List available datasets |
-| POST | `/train` | Train all models on a dataset |
-| POST | `/predict` | Predict price with SHAP values |
-| GET | `/model-comparison` | Metrics for all models |
-| GET | `/residuals/{model}` | Residual analysis data |
-| GET | `/feature-importance` | Global SHAP importance |
-
-## Team
-
-| USN | Name | Role |
-|-----|------|------|
-| 1VI23CS036 | J JOSHIKA | Problem Statement |
-| 1VI23CS037 | J NAVYA BHARGAVI | Objective |
-| 1VI23CS038 | JAGRUTHI M | Datasets |
-| 1VI23CS039 | K N LOKESH REDDY | Techniques |
+## ◈ Credits
+Built by the PriceLens Engineering Team.
+- **Aesthetics**: Code Carnage 2.0 Design Language.
+- **Models**: Scikit-Learn Open Source Project.
