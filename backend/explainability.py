@@ -12,21 +12,7 @@ except ImportError:
 
 
 def explain_prediction(model, X_background, X_instance, feature_names, top_n=10):
-    """
-    Explain a single prediction using SHAP LinearExplainer.
-
-    Parameters
-    ----------
-    model : fitted sklearn linear model
-    X_background : ndarray — training data (or a sample of it)
-    X_instance : ndarray — single row to explain, shape (1, n_features)
-    feature_names : list[str]
-    top_n : int — number of top features to return
-
-    Returns
-    -------
-    list[dict] — [{feature, shap_value, contribution_direction}, ...]
-    """
+    global SHAP_AVAILABLE
     if SHAP_AVAILABLE:
         try:
             explainer = shap.LinearExplainer(model, X_background)
@@ -60,13 +46,7 @@ def explain_prediction(model, X_background, X_instance, feature_names, top_n=10)
 
 
 def global_shap_summary(model, X_background, feature_names, top_n=15):
-    """
-    Compute global SHAP importance: mean |SHAP value| per feature.
-
-    Returns
-    -------
-    list[dict] — [{feature, mean_abs_shap}, ...] sorted descending
-    """
+    global SHAP_AVAILABLE
     if SHAP_AVAILABLE:
         try:
             explainer = shap.LinearExplainer(model, X_background)
