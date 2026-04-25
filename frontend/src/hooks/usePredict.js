@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-const API = 'http://localhost:8000';
+const API = '/api';
 
 export function usePredict() {
   const [loading, setLoading] = useState(false);

@@ -21,7 +21,7 @@ from diagnostics import residual_data, qq_data, breusch_pagan_test, cross_val
 from explainability import explain_prediction, global_shap_summary
 
 # ── App ────────────────────────────────────────────────────────────────────
-app = FastAPI(title="PriceLens API", version="1.0.0")
+app = FastAPI(title="PriceLens API", version="1.0.0", root_path="/api")
 
 app.add_middleware(
     CORSMiddleware,

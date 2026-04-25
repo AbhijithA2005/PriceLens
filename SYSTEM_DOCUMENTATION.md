@@ -94,29 +94,35 @@ PriceLens uses **SHAP Values** to explain *why* a certain price was predicted:
 
 ---
 
-## 7. How to Run
+### Local Development
+1. **Backend**:
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   # Use uvicorn to run locally
+   uvicorn main:app --reload
+   ```
+2. **Frontend**:
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
 
-### Backend
-```bash
-cd backend
-pip install -r requirements.txt
-python main.py
-```
-*Runs on http://localhost:8000*
+### Vercel Deployment
+1. Connect your repository to Vercel.
+2. Vercel will automatically detect `vercel.json` and `api/index.py`.
+3. The frontend is built from the `frontend` folder and served at the root, while the backend is served at `/api`.
 
-### Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
-*Runs on http://localhost:5173*
 
 ---
 
 ## 8. File Structure
 - `backend/`: FastAPI logic, ML models, and diagnostics.
+  - `data/`: CSV datasets for Ames, CA, Zillow, and King County.
 - `frontend/src/components/`: Modular UI components.
-- `frontend/src/hooks/`: Custom hooks for API communication.
+- `frontend/src/hooks/`: Custom hooks for API communication (using relative `/api` paths).
 - `frontend/src/styles/`: Global CSS and design tokens.
-- `data/`: CSV datasets for Ames, CA, Zillow, and King County.
+- `vercel.json`: Configuration for monorepo routing and build settings.
+- `package.json` (root): Orchestrates frontend builds for deployment.
+
