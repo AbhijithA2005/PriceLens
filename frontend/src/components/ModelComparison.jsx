@@ -84,7 +84,12 @@ export default function ModelComparison({ dataset, trained }) {
     font: { family: "'DM Sans', sans-serif", color: '#8b8b9e', size: 11 },
     margin: { l: 60, r: 20, t: 30, b: 60 },
     xaxis: { gridcolor: 'rgba(255,255,255,0.05)', tickfont: { size: 11, color: '#8b8b9e' } },
-    yaxis: { gridcolor: 'rgba(255,255,255,0.05)', tickfont: { size: 10, color: '#55556a', family: "'Space Mono'" } },
+    yaxis: { 
+      type: 'log',
+      title: { text: 'RMSE (Log Scale)', font: { size: 10, color: '#55556a' } },
+      gridcolor: 'rgba(255,255,255,0.05)', 
+      tickfont: { size: 10, color: '#55556a', family: "'Space Mono'" } 
+    },
     barmode: 'group',
     hoverlabel: {
       bgcolor: '#1a1a24',
