@@ -69,12 +69,11 @@ export default function ModelComparison({ dataset, trained }) {
   // Build 3D bars as scatter3d markers (stacked by metric)
   const barTraces = sorted.map((m, i) => ({
     x: [m.name.replace(' Regression', '')],
-    y: ['RMSE'],
-    z: [m.rmse_test],
+    y: [m.rmse_test],
     type: 'bar',
     name: m.name.replace(' Regression', ''),
     marker: { color: COLORS[i % COLORS.length], opacity: 0.9 },
-    hovertemplate: `<b>${m.name.replace(' Regression', '')}</b><br>RMSE: %{z:,.0f}<extra></extra>`,
+    hovertemplate: `<b>${m.name.replace(' Regression', '')}</b><br>RMSE: %{y:,.0f}<extra></extra>`,
     showlegend: true,
   }));
 
