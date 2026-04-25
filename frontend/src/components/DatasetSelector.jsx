@@ -84,6 +84,12 @@ export default function DatasetSelector({ selected, onSelect, onTrain, training 
           <div style={styles.cardTitle}>
             {meta.label}
             {isActive && <span className="badge badge-orange" style={{ marginLeft: 8 }}>Active</span>}
+            {training && isActive && (
+              <span style={styles.trainingIndicator}>
+                <div className="spinner" style={{ width: 12, height: 12, borderWidth: 1.5 }} />
+                Training…
+              </span>
+            )}
           </div>
           <div style={styles.cardDesc}>{meta.desc}</div>
           <div style={styles.cardMeta}>
@@ -92,12 +98,6 @@ export default function DatasetSelector({ selected, onSelect, onTrain, training 
             <span className="mono">{ds.columns?.length} cols</span>
           </div>
         </div>
-        {training && isActive && (
-          <div style={styles.trainingBadge}>
-            <div className="spinner" style={{ width: 16, height: 16, borderWidth: 2 }} />
-            Training…
-          </div>
-        )}
       </button>
     );
   };
@@ -213,16 +213,16 @@ const styles = {
     color: '#55556a',
     fontFamily: "'Space Mono', monospace",
   },
-  trainingBadge: {
-    position: 'absolute',
-    bottom: 12,
-    right: 12,
+  trainingIndicator: {
+    marginLeft: 'auto',
     display: 'flex',
     alignItems: 'center',
     gap: 6,
-    fontSize: '0.72rem',
+    fontSize: '0.68rem',
     color: '#f97316',
     fontFamily: "'Space Mono', monospace",
+    textTransform: 'uppercase',
+    letterSpacing: '0.02em',
   },
 
   /* ── Bonus +1 Card ── */
